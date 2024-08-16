@@ -228,3 +228,136 @@
     transform: rotate(0deg);
   }
 }
+/* Red background with image overlay */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: red; /* Red background */
+  background-image: url('image_fx_\ copy.jpg'); /* Marvel-themed background image */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.header {
+  position: fixed; /* Ensure header is fixed at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3; /* Ensure header is above background */
+  background-color: #000000; /* Background color for header */
+  color: #FFFFFF; /* Text color for header */
+  padding: 16px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Comic book dot pattern overlay */
+.dot-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 10px 10px;
+  z-index: 1;
+  pointer-events: none; /* Allow clicks to pass through */
+}
+.onomatopoeia {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  font-size: 3rem; /* Bigger text */
+  font-weight: bold;
+  color: #FFD700; /* Gold color for comic book effect */
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  animation: popOutAnimation 1s ease-in-out; /* Pop out animation */
+  cursor: pointer; /* Change cursor to pointer */
+  position: absolute; /* Absolute positioning */
+  padding: 10px; /* Padding inside speech bubble */
+  background: rgba(255, 255, 255, 0.8); /* Background color for speech bubble with transparency */
+  border: 3px solid #000000; /* Border for speech bubble */
+  border-radius: 10px; /* Rounded corners for speech bubble */
+  animation: popIn 0.5s ease-in-out; /* Add pop-in animation */
+}
+
+.onomatopoeia:hover {
+  animation: popOutAnimation 0.5s ease-in-out; /* Pop out animation on hover */
+}
+
+/* Remove the triangle */
+.onomatopoeia::before,
+.onomatopoeia::after {
+  content: none;
+}
+
+
+@keyframes popOutAnimation {
+  0% {
+    transform: scale(0.5); /* Start small */
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2); /* Pop larger */
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1); /* Return to normal size */
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5); /* Start small */
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1); /* Full size */
+    opacity: 1;
+  }
+}
+
+/* Message Box Styling */
+.message-box {
+  position: relative;
+  z-index: 2; /* Ensure it's above the background and dots */
+  max-width: 600px;
+  width: 100%;
+  height: 70vh; /* Adjusted to fill 70% of the viewport height */
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+/* Speech Bubble Styling */
+.message-bubble {
+  animation: popIn 0.5s ease-in-out; /* Pop-in animation for speech bubbles */
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+}
+
+.message-bubble.assistant {
+  background-color: #fc2003;
+  color: #FFFFFF;
+  align-self: flex-start; /* Align assistant messages to the left */
+}
+
+.message-bubble.user {
+  background-color: #2d0ada;
+  color: #FFFFFF;
+  align-self: flex-end; /* Align user messages to the right */
+}
+
+.message-timestamp {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: right;
+  margin-top: 8px;
+}

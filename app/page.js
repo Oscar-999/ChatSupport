@@ -1,11 +1,17 @@
 'use client';
-import { Box, Stack, TextField, Button, Typography } from "@mui/material";
+import styles from './page.module.css';
+import { Box, Stack, TextField, Button, Typography, IconButton } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
+import dayjs from 'dayjs';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LoadingScreen from './LoadingScreen'; // Import the LoadingScreen component
+
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hello there! I am Jarvis feel free to ask me anything about superheros!!'
+      content: 'Hello there! I am Jarvis. Feel free to ask me anything about superheroes!',
+      timestamp: dayjs().format('HH:mm:ss')
     }
   ]);
   const [message, setMessage] = useState('');
@@ -13,7 +19,7 @@ export default function Home() {
 
   const sendMessage = async () => {
     if (message.trim()) {
-      const newMessage = { role: 'user', content: message };
+      const newMessage = { role: 'user', content: message, timestamp: dayjs().format('HH:mm:ss') };
       setMessages([...messages, newMessage]);
       setMessage('');
 
@@ -37,7 +43,7 @@ export default function Home() {
 
         setMessages((prevMessages) => [
           ...prevMessages,
-          { role: 'assistant', content: updatedMessage, id: messageId },
+          { role: 'assistant', content: updatedMessage, id: messageId, timestamp: dayjs().format('HH:mm:ss') },
         ]);
 
         while (true) {
@@ -80,15 +86,58 @@ export default function Home() {
       justifyContent="center"
       alignItems="center"
     >
+      <LoadingScreen /> {/* Add the LoadingScreen component here */}
 
-      <Box  sx={{
-    zIndex: 2,
-    width: { xs: '90%', sm: '60%', md: '40%', lg: '30%' }, // Adjusts width based on screen size
-    height: { xs: '67%', sm: '70%', md: '75%', lg: '77%' }, // Adjusts height based on screen size
-    maxWidth: '120%', // Ensures width does not exceed 120%
-    maxHeight: '75%', // Ensures height does not exceed 75%
-    margin: '0 auto', // Centers the Box horizontally
-  }}>
+      {/* Marvel-themed comic book background */}
+      <Box className={styles.background}></Box>
+
+      {/* Comic book dot overlay */}
+      <Box className={styles['dot-overlay']}></Box>
+
+      {/* Header Bar */}
+      <Box
+        width="100%"
+        bgcolor="ED1D24"
+        color="#FFFFFF"
+        p={2}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        fontSize="24px"
+        fontWeight="bold"
+        sx={{ zIndex: 3 }}
+      >
+        <Typography variant="h6" component="div">
+          Welcome to Hero Chat
+        </Typography>
+
+        {/* GitHub Button */}
+        <IconButton
+          aria-label="GitHub"
+          href="https://github.com/Oscar-999/ChatSupport" 
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            color: "#FFFFFF",
+            '&:hover': {
+              color: '#ED1D24',
+            },
+          }}
+        >
+          <GitHubIcon />
+        </IconButton>
+      </Box>
+
+      {/* Onomatopoeia Text Boxes */}
+      <Box className={styles.onomatopoeia} sx={{ top: '20%', left: '10%' }}>BAM!</Box>
+      <Box className={styles.onomatopoeia} sx={{ top: '50%', left: '80%' }}>POW!</Box>
+      <Box className={styles.onomatopoeia} sx={{ top: '77%', left: '80%' }}>ZAP!</Box>
+      <Box className={styles.onomatopoeia} sx={{ top: '20%', left: '80%' }}>WHAM!</Box>
+      <Box className={styles.onomatopoeia} sx={{ top: '75%', left: '10%' }}>BOOM!</Box>
+      <Box className={styles.onomatopoeia} sx={{ top: '50%', left: '10%' }}>BANG!</Box>
+
+      {/* Message Box */}
+      <Box className={styles['message-box']}>
         <Stack
           direction={'column'}
           width="100%"
@@ -99,7 +148,6 @@ export default function Home() {
           p={2}
           spacing={3}
           bgcolor="#FFFFFF"
-          zIndex={2}
         >
           <Stack
             direction={'column'}
@@ -116,13 +164,19 @@ export default function Home() {
               >
                 <Box
                   bgcolor={msg.role === 'assistant' ? '#fc2003' : '#55896a'}
-                  color={msg.role === 'assistant' ? 'FFFFFF' : '#FFFFF'}
+                  color={msg.role === 'assistant' ? '#FFFFFF' : '#FFFFFF'}
                   borderRadius="12px"
                   p={2}
                   boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)"
                   maxWidth="80%"
+                  sx={{
+                    animation: 'popOutAnimation 0.5s ease-in-out'
+                  }}
                 >
                   {msg.content}
+                  <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'right', marginTop: '8px' }}>
+                    {msg.timestamp}
+                  </Typography>
                 </Box>
               </Box>
             ))}
@@ -164,10 +218,7 @@ export default function Home() {
                 borderColor: '#000000',
                 fontFamily: "'Roboto', sans-serif",
                 '&:hover': {
-                  bgcolor: '#f06292',
-                },
-                '& fieldset': {
-                  borderColor: '#000000',
+                  bgcolor: '#ED1D24',
                 },
               }}
             >
@@ -177,6 +228,5 @@ export default function Home() {
         </Stack>
       </Box>
     </Box>
-
   );
 }
