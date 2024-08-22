@@ -23,8 +23,10 @@ export default function Home() {
 
   const sendMessage = async () => {
     if (message.trim()) {
-      const newMessage = { role: 'user', content: message};
-      setMessages([...messages, newMessage]);
+      const timestamp = dayjs().format('HH:mm:ss');
+      const localMessage = { role: 'user', content: message, timestamp };
+      const apiMessage = { role: 'user', content: message };
+      setMessages([...messages, localMessage]);
       setMessage('');
 
       try {
@@ -33,7 +35,7 @@ export default function Home() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ messages: [...messages, newMessage] }),
+          body: JSON.stringify({ messages: [...messages.map(msg => ({ role: msg.role, content: msg.content })), apiMessage] }),
         });
 
         if (!response.ok) {
@@ -47,7 +49,7 @@ export default function Home() {
 
         setMessages((prevMessages) => [
           ...prevMessages,
-          { role: 'assistant', content: updatedMessage, id: messageId},
+          { role: 'assistant', content: updatedMessage, id: messageId, timestamp: dayjs().format('HH:mm:ss') }
         ]);
 
         while (true) {
@@ -178,6 +180,9 @@ export default function Home() {
                   }}
                 >
                   {msg.content}
+                  <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'right', marginTop: '8px' }}>
+                    {msg.timestamp}
+                    </Typography>
                 </Box>
               </Box>
             ))}
