@@ -7,15 +7,20 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LoadingScreen from './LoadingScreen'; // Import the LoadingScreen component
 
 export default function Home() {
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: 'Hello there! I am Jarvis. Feel free to ask me anything about superheroes!',
-      timestamp: dayjs().format('HH:mm:ss')
-    }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
+
+  // Populate initial assistant message only on client side
+  useEffect(() => {
+    setMessages([
+      {
+        role: 'assistant',
+        content: 'Hello there! I am Jarvis. Feel free to ask me anything about superheroes!',
+        timestamp: dayjs().format('HH:mm:ss')
+      }
+    ]);
+  }, []);
 
   const sendMessage = async () => {
     if (message.trim()) {
