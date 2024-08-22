@@ -17,14 +17,13 @@ export default function Home() {
       {
         role: 'assistant',
         content: 'Hello there! I am Jarvis. Feel free to ask me anything about superheroes!',
-        timestamp: dayjs().format('HH:mm:ss')
       }
     ]);
   }, []);
 
   const sendMessage = async () => {
     if (message.trim()) {
-      const newMessage = { role: 'user', content: message, timestamp: dayjs().format('HH:mm:ss') };
+      const newMessage = { role: 'user', content: message};
       setMessages([...messages, newMessage]);
       setMessage('');
 
@@ -48,7 +47,7 @@ export default function Home() {
 
         setMessages((prevMessages) => [
           ...prevMessages,
-          { role: 'assistant', content: updatedMessage, id: messageId, timestamp: dayjs().format('HH:mm:ss') },
+          { role: 'assistant', content: updatedMessage, id: messageId},
         ]);
 
         while (true) {
@@ -179,9 +178,6 @@ export default function Home() {
                   }}
                 >
                   {msg.content}
-                  <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'right', marginTop: '8px' }}>
-                    {msg.timestamp}
-                  </Typography>
                 </Box>
               </Box>
             ))}
