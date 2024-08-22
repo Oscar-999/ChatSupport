@@ -236,7 +236,7 @@
   width: 100%;
   height: 100%;
   background-color: red; /* Red background */
-  background-image: url('image_fx_\ copy.jpg'); /* Marvel-themed background image */
+  background-image: url("image_fx_\ copy.jpg"); /* Marvel-themed background image */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -251,7 +251,7 @@
   width: 100%;
   z-index: 3; /* Ensure header is above background */
   background-color: #000000; /* Background color for header */
-  color: #FFFFFF; /* Text color for header */
+  color: #ffffff; /* Text color for header */
   padding: 16px;
   text-align: center;
   font-size: 24px;
@@ -271,16 +271,22 @@
   pointer-events: none; /* Allow clicks to pass through */
 }
 .onomatopoeia {
-  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
   font-size: 3rem; /* Bigger text */
   font-weight: bold;
-  color: #FFD700; /* Gold color for comic book effect */
-  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: #ffd700; /* Gold color for comic book effect */
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
+    -1px 1px 0 #000, 1px 1px 0 #000;
   animation: popOutAnimation 1s ease-in-out; /* Pop out animation */
   cursor: pointer; /* Change cursor to pointer */
   position: absolute; /* Absolute positioning */
   padding: 10px; /* Padding inside speech bubble */
-  background: rgba(255, 255, 255, 0.8); /* Background color for speech bubble with transparency */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Background color for speech bubble with transparency */
   border: 3px solid #000000; /* Border for speech bubble */
   border-radius: 10px; /* Rounded corners for speech bubble */
   animation: popIn 0.5s ease-in-out; /* Add pop-in animation */
@@ -295,7 +301,6 @@
 .onomatopoeia::after {
   content: none;
 }
-
 
 @keyframes popOutAnimation {
   0% {
@@ -345,13 +350,13 @@
 
 .message-bubble.assistant {
   background-color: #fc2003;
-  color: #FFFFFF;
+  color: #ffffff;
   align-self: flex-start; /* Align assistant messages to the left */
 }
 
 .message-bubble.user {
   background-color: #2d0ada;
-  color: #FFFFFF;
+  color: #ffffff;
   align-self: flex-end; /* Align user messages to the right */
 }
 
